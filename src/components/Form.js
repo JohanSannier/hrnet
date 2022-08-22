@@ -16,16 +16,25 @@ function Form() {
   });
 
   const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
+    const { name, value } = event.target;
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(input);
+    setInputs({
+      firstName: "",
+      lastName: "",
+      birthDay: "",
+      startDate: "",
+      street: "",
+      city: "",
+      state: "",
+      zipCode: 0,
+      department: "",
+    });
   };
-
-  console.log(input);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -87,7 +96,7 @@ function Form() {
         </label>
         <label className="label">
           State:{" "}
-          <select value={input.state} onChange={handleChange}>
+          <select value={input.state} name="state" onChange={handleChange}>
             {states.map((state, index) => (
               <option key={index} value={state.name}>
                 {state.name}
@@ -108,7 +117,11 @@ function Form() {
       </fieldset>
       <label className="label">
         Department:{" "}
-        <select value={input.department} onChange={handleChange}>
+        <select
+          value={input.department}
+          name="department"
+          onChange={handleChange}
+        >
           {departments.map((department, index) => (
             <option key={index} value={department.name}>
               {department.name}
@@ -116,7 +129,7 @@ function Form() {
           ))}
         </select>
       </label>
-      <button type="submit">Save</button>
+      <button>Save</button>
     </form>
   );
 }

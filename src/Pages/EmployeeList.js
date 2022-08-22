@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 function EmployeeList() {
   return (
-    <div>
+    <section>
       <Link to="/">Home</Link>
-    </div>
+    </section>
   );
 }
 

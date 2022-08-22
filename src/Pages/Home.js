@@ -4,16 +4,15 @@ import Form from "../components/Form";
 
 function Home() {
   return (
-    <div>
+    <section>
       <h1>HRnet</h1>
       <nav>
-        <Link to="/">Home</Link> |{" "}
         <Link to="employee-list">View Current Employees</Link>
       </nav>
 
       <h2>Create Employee</h2>
       <Form />
-    </div>
+    </section>
   );
 }
 
