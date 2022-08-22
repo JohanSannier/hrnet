@@ -50,3 +50,8 @@ code {
     transform: rotate(360deg);
   }
 }
+
+.label {
+  display: block;
+  margin-top: 0.8rem;
+}
