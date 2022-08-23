@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { states } from "../data/States";
 import { departments } from "../data/Departments";
+import { useDispatch } from "react-redux";
+import { addEmployee } from "../features/employeeSlice";
 
 function Form() {
   const [input, setInputs] = useState({
@@ -14,6 +16,7 @@ function Form() {
     zipCode: 0,
     department: "",
   });
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -22,7 +25,7 @@ function Form() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(input);
+    dispatch(addEmployee({ input }));
     setInputs({
       firstName: "",
       lastName: "",

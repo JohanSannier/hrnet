@@ -1,8 +1,8 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Pages/Home";
-import Error from "./Pages/Error";
-import EmployeeList from "./Pages/EmployeeList";
+import Home from "./pages/Home";
+import Error from "./pages/Error";
+import EmployeeList from "./pages/EmployeeList";
 
 function App() {
   return (
