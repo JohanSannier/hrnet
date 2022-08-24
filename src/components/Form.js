@@ -111,6 +111,9 @@ function Form() {
           <label className="label">
             State:{" "}
             <select value={input.state} name="state" onChange={handleChange}>
+              <option value="" key="select-state">
+                --Select a state--
+              </option>
               {states.map((state, index) => (
                 <option key={index} value={state.name}>
                   {state.name}
@@ -136,6 +139,9 @@ function Form() {
             name="department"
             onChange={handleChange}
           >
+            <option value="" key="select-department">
+              --Select a department--
+            </option>
             {departments.map((department, index) => (
               <option key={index} value={department.name}>
                 {department.name}
