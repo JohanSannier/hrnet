@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../components/Table";
 import { addEmployee } from "../features/employeeSlice";
-import { increment } from "../features/countSlice";
+import { increment, reset } from "../features/countSlice";
 
 function EmployeeList() {
   const employees = useSelector((state) => state.list.employees);
@@ -17,6 +17,7 @@ function EmployeeList() {
       return;
     } else {
       const populateEmployeeState = async () => {
+        dispatch(reset());
         for (let index = 0; index < localStorage.length; index++) {
           const input = await JSON.parse(localStorage.getItem(index));
           dispatch(addEmployee({ input }));
