@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Table from "../components/Table";
+import { addEmployee } from "../features/employeeSlice";
+import { increment } from "../features/countSlice";
 
 function EmployeeList() {
   const employees = useSelector((state) => state.list.employees);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.length === 0) {
+      return;
+    } else if (employees.length > 0) {
+      return;
+    } else {
+      const populateEmployeeState = async () => {
+        for (let index = 0; index < localStorage.length; index++) {
+          const input = await JSON.parse(localStorage.getItem(index));
+          dispatch(addEmployee({ input }));
+          dispatch(increment());
+        }
+      };
+      populateEmployeeState().catch(console.error);
+    }
+  }, []);
 
   return (
     <main>

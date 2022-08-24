@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { states } from "../data/States";
 import { departments } from "../data/Departments";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addEmployee } from "../features/employeeSlice";
+import { increment } from "../features/countSlice";
 import ModalDialog from "../components/ModalDialog";
 
 function Form() {
@@ -17,6 +18,7 @@ function Form() {
     zipCode: "",
     department: "",
   });
+  const count = useSelector((state) => state.storage.count);
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
@@ -35,6 +37,8 @@ function Form() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(addEmployee({ input }));
+    localStorage.setItem(count, JSON.stringify(input));
+    dispatch(increment());
     setInputs({
       firstName: "",
       lastName: "",

@@ -77,8 +77,8 @@ function Table({ data }) {
         </tr>
       </thead>
       <tbody>
-        {data.map((employee) => (
-          <tr>
+        {data.map((employee, index) => (
+          <tr key={index}>
             <td>{employee.input.firstName}</td>
             <td>{employee.input.lastName}</td>
             <td>{employee.input.startDate}</td>
