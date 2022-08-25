@@ -119,7 +119,7 @@ function Form() {
                 --Select a state--
               </option>
               {states.map((state, index) => (
-                <option key={index} value={state.name}>
+                <option key={index} value={state.abbreviation}>
                   {state.name}
                 </option>
               ))}

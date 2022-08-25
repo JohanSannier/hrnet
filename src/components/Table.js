@@ -3,7 +3,7 @@ import { FaSort } from "react-icons/fa";
 import { FaSortUp } from "react-icons/fa";
 import { FaSortDown } from "react-icons/fa";
 
-function Table({ data }) {
+function Table({ data, filteredData, entries }) {
   const [icons, seticons] = useState("default");
   const handleClickIcon = () => {
     // setIcons((prevValue) => {
@@ -77,8 +77,8 @@ function Table({ data }) {
         </tr>
       </thead>
       <tbody>
-        {data.map((employee, index) => (
-          <tr key={index}>
+        {filteredData.slice(0, 999).map((employee, index) => (
+          <tr key={index} id={`employee-${index}`}>
             <td>{employee.input.firstName}</td>
             <td>{employee.input.lastName}</td>
             <td>{employee.input.startDate}</td>
