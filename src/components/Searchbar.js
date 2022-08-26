@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterData } from "../features/searchSlice";
+import { filterData, activeSearch } from "../features/searchSlice";
 
 function Searchbar() {
   const employees = useSelector((state) => state.list.employees);
+  const [searchedInputs, setSearchedInputs] = useState({ search: "" });
   const dispatch = useDispatch();
   const handleInput = (e) => {
+    const { name } = e.target;
     const searchWord = e.target.value.toLowerCase();
+    setSearchedInputs({ [name]: searchWord });
+    // const singleWord = searchWord.trim().split(/\s+/);
+    // console.log(singleWord);
+    // singleWord.forEach((word) => {
     const newFilter = employees.filter((employee) => {
       return (
         employee.input.firstName.toLowerCase().includes(searchWord) ||
@@ -21,11 +27,20 @@ function Searchbar() {
       );
     });
     dispatch(filterData(newFilter));
+    dispatch(activeSearch(searchWord));
+    // });
   };
 
   return (
     <label className="label flex">
-      Search: <input type="search" name="search" onInput={handleInput} />
+      Search:{" "}
+      <input
+        type="search"
+        value={searchedInputs.search}
+        onInput={handleInput}
+        name="search"
+        id="search-input"
+      />
     </label>
   );
 }

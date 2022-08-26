@@ -9,18 +9,14 @@ import Searchbar from "../components/Searchbar";
 function EmployeeList() {
   const employees = useSelector((state) => state.list.employees);
   const filteredData = useSelector((state) => state.search.results);
-  const [entries, setEntries] = useState([
-    { nb: 10 },
-    { nb: 25 },
-    { nb: 50 },
-    { nb: 100 },
-  ]);
-  const [entriesNumber, setEntriesNumber] = useState(10);
+  const [entries, setEntries] = useState([10, 25, 50, 100]);
+  const [entriesNumber, setEntriesNumber] = useState({ currentEntries: 10 });
 
   const handleEntriesNumber = (e) => {
     const value = parseInt(e.target.value);
+    const { name } = e.target;
     console.log(value);
-    setEntriesNumber(value);
+    setEntriesNumber({ [name]: value });
     console.log(entriesNumber);
   };
 
@@ -52,14 +48,14 @@ function EmployeeList() {
           <p className="show-entries">
             Show
             <select
-              name="entries"
-              id="entries"
+              name="currentEntries"
+              id="current-entries"
+              value={entriesNumber.currentEntries}
               onChange={handleEntriesNumber}
-              value={entriesNumber}
             >
               {entries.map((entry, index) => (
-                <option value={entry.nb} key={index}>
-                  {entry.nb}
+                <option value={entry} key={index}>
+                  {entry}
                 </option>
               ))}
             </select>
@@ -70,7 +66,7 @@ function EmployeeList() {
         <Table
           data={employees}
           filteredData={filteredData}
-          entries={entriesNumber}
+          entries={entriesNumber.currentEntries}
         />
         <div className="lower-content flex">
           <p className="lower-content-paragragh">

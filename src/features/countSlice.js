@@ -14,9 +14,12 @@ export const countlice = createSlice({
     reset: (state) => {
       state.count = 0;
     },
+    getStorageCount: (state, { payload }) => {
+      state.count += payload;
+    },
   },
 });
 
-export const { increment, reset } = countlice.actions;
+export const { increment, reset, getStorageCount } = countlice.actions;
 
 export default countlice.reducer;

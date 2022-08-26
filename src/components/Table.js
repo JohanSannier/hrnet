@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSort } from "react-icons/fa";
 import { FaSortUp } from "react-icons/fa";
 import { FaSortDown } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 function Table({ data, filteredData, entries }) {
+  const isActive = useSelector((state) => state.search.isActive);
+  console.log(entries);
   const [icons, seticons] = useState("default");
+  useEffect(() => {
+    const searchbar = document.getElementById("search-input");
+    console.log(searchbar.value.length);
+  }, []);
+
   const handleClickIcon = () => {
     // setIcons((prevValue) => {
     //   switch (prevValue) {
@@ -77,19 +85,33 @@ function Table({ data, filteredData, entries }) {
         </tr>
       </thead>
       <tbody>
-        {filteredData.slice(0, 999).map((employee, index) => (
-          <tr key={index} id={`employee-${index}`}>
-            <td>{employee.input.firstName}</td>
-            <td>{employee.input.lastName}</td>
-            <td>{employee.input.startDate}</td>
-            <td>{employee.input.department}</td>
-            <td>{employee.input.birthDay}</td>
-            <td>{employee.input.street}</td>
-            <td>{employee.input.city}</td>
-            <td>{employee.input.state}</td>
-            <td>{employee.input.zipCode}</td>
-          </tr>
-        ))}
+        {filteredData.length > 0 || isActive
+          ? filteredData.slice(0, 999).map((employee, index) => (
+              <tr key={index} id={`employee-${index}`}>
+                <td>{employee.input.firstName}</td>
+                <td>{employee.input.lastName}</td>
+                <td>{employee.input.startDate}</td>
+                <td>{employee.input.department}</td>
+                <td>{employee.input.birthDay}</td>
+                <td>{employee.input.street}</td>
+                <td>{employee.input.city}</td>
+                <td>{employee.input.state}</td>
+                <td>{employee.input.zipCode}</td>
+              </tr>
+            ))
+          : data.slice(0, 999).map((employee, index) => (
+              <tr key={index} id={`employee-${index}`}>
+                <td>{employee.input.firstName}</td>
+                <td>{employee.input.lastName}</td>
+                <td>{employee.input.startDate}</td>
+                <td>{employee.input.department}</td>
+                <td>{employee.input.birthDay}</td>
+                <td>{employee.input.street}</td>
+                <td>{employee.input.city}</td>
+                <td>{employee.input.state}</td>
+                <td>{employee.input.zipCode}</td>
+              </tr>
+            ))}
       </tbody>
     </table>
   );
