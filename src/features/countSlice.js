@@ -15,7 +15,7 @@ export const countlice = createSlice({
       state.count = 0;
     },
     getStorageCount: (state, { payload }) => {
-      state.count += payload;
+      state.count = payload;
     },
   },
 });

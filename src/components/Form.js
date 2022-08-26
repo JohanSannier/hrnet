@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { states } from "../data/States";
 import { departments } from "../data/Departments";
 import { useDispatch, useSelector } from "react-redux";
 import { addEmployee } from "../features/employeeSlice";
-import { increment } from "../features/countSlice";
+import { getStorageCount, increment } from "../features/countSlice";
 import ModalDialog from "../components/ModalDialog";
 
 function Form() {
+  useEffect(() => {
+    dispatch(getStorageCount(localStorage.length));
+  }, []);
+
   const [input, setInputs] = useState({
     firstName: "",
     lastName: "",
@@ -19,6 +23,7 @@ function Form() {
     department: "",
   });
   const count = useSelector((state) => state.storage.count);
+  console.log(count);
   const dispatch = useDispatch();
 
   const handleChange = (event) => {

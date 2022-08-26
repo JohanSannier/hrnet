@@ -6,11 +6,11 @@ import { useSelector } from "react-redux";
 
 function Table({ data, filteredData, entries }) {
   const isActive = useSelector((state) => state.search.isActive);
-  console.log(entries);
+  // console.log(entries);
   const [icons, seticons] = useState("default");
   useEffect(() => {
     const searchbar = document.getElementById("search-input");
-    console.log(searchbar.value.length);
+    // console.log(searchbar.value.length);
   }, []);
 
   const handleClickIcon = () => {
