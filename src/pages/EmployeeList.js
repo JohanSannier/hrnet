@@ -15,9 +15,13 @@ function EmployeeList() {
   const handleEntriesNumber = (e) => {
     const value = parseInt(e.target.value);
     const { name } = e.target;
-    console.log(value);
     setEntriesNumber({ [name]: value });
+    console.log(name);
+    console.log(value);
     console.log(entriesNumber);
+    setTimeout(() => {
+      console.log(entriesNumber);
+    }, 1000);
   };
 
   const dispatch = useDispatch();

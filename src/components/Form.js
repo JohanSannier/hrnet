@@ -8,7 +8,7 @@ import ModalDialog from "../components/ModalDialog";
 
 function Form() {
   const employees = useSelector((state) => state.list.employees);
-  console.log(employees);
+  // console.log(employees);
 
   useEffect(() => {
     if (localStorage.length === 0) {

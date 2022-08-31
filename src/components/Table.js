@@ -8,6 +8,8 @@ function Table({ data, filteredData, entries }) {
   const isActive = useSelector((state) => state.search.isActive);
   // console.log(entries);
   const [icons, seticons] = useState("default");
+  // deux state - un pour n0 colonne filtrees et un deuxieme state pour indiquer le sens du filtre
+  // console.log(entries);
   useEffect(() => {
     const searchbar = document.getElementById("search-input");
     // console.log(searchbar.value.length);
@@ -50,6 +52,7 @@ function Table({ data, filteredData, entries }) {
         <tr className="table-title">
           <th onClick={handleClickIcon}>
             First Name{" "}
+            {/* si colonne = 0 donc celle ci est filtree, si pas filtree double fleche si ca lest une des autres icones - si descendant ... si montant .... */}
             {icons === "true" ? (
               <FaSortUp />
             ) : icons === "false" ? (
@@ -85,8 +88,9 @@ function Table({ data, filteredData, entries }) {
         </tr>
       </thead>
       <tbody>
+        {/* (n0 de la page -1 ) multiple par nb entries souhaitees */}
         {filteredData.length > 0 || isActive
-          ? filteredData.slice(0, 999).map((employee, index) => (
+          ? filteredData.slice(0, entries).map((employee, index) => (
               <tr key={index} id={`employee-${index}`}>
                 <td>{employee.input.firstName}</td>
                 <td>{employee.input.lastName}</td>
@@ -99,7 +103,7 @@ function Table({ data, filteredData, entries }) {
                 <td>{employee.input.zipCode}</td>
               </tr>
             ))
-          : data.slice(0, 999).map((employee, index) => (
+          : data.slice(0, entries).map((employee, index) => (
               <tr key={index} id={`employee-${index}`}>
                 <td>{employee.input.firstName}</td>
                 <td>{employee.input.lastName}</td>
