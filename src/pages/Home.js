@@ -7,7 +7,7 @@ function Home() {
     <section>
       <h1>HRnet</h1>
       <nav>
-        <Link to="employee-list">View Current Employees</Link>
+        <Link to="employee-list/1">View Current Employees</Link>
       </nav>
 
       <h2>Create Employee</h2>

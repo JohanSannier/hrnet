@@ -11,7 +11,6 @@ function Searchbar() {
     const searchWord = e.target.value.toLowerCase();
     setSearchedInputs({ [name]: searchWord });
     const inputWords = searchWord.trim().split(/\s+/);
-    console.log(inputWords);
 
     const newFilter = employees.filter((employee) => {
       let unMatched = inputWords.length;

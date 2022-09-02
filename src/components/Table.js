@@ -3,10 +3,10 @@ import { FaSort } from "react-icons/fa";
 import { FaSortUp } from "react-icons/fa";
 import { FaSortDown } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 function Table({ data, filteredData, entries }) {
   const isActive = useSelector((state) => state.search.isActive);
-  // console.log(entries);
   const [icons, seticons] = useState("default");
   const [filteredColumn, setFilteredColumn] = useState(0);
   // deux state - un pour n0 colonne filtrees et un deuxieme state pour indiquer le sens du filtre
@@ -15,13 +15,14 @@ function Table({ data, filteredData, entries }) {
     const dataTitle = parseInt(
       e.target.parentNode.parentNode.getAttribute("data-title")
     );
-    console.log(e.target);
     setFilteredColumn((prevValue) => {
       prevValue === dataTitle
         ? seticons((prevIcon) => !prevIcon)
         : (prevValue = dataTitle);
     });
   };
+
+  const { pageNumber } = useParams();
   return (
     <table className="table">
       <thead>
@@ -66,32 +67,46 @@ function Table({ data, filteredData, entries }) {
       <tbody>
         {/* (n0 de la page -1 ) multiple par nb entries souhaitees */}
         {filteredData.length > 0 || isActive
-          ? filteredData.slice(0, entries).map((employee, index) => (
-              <tr key={index} id={`employee-${index}`}>
-                <td>{employee.input.firstName}</td>
-                <td>{employee.input.lastName}</td>
-                <td>{employee.input.startDate}</td>
-                <td>{employee.input.department}</td>
-                <td>{employee.input.birthDay}</td>
-                <td>{employee.input.street}</td>
-                <td>{employee.input.city}</td>
-                <td>{employee.input.state}</td>
-                <td>{employee.input.zipCode}</td>
-              </tr>
-            ))
-          : data.slice(0, entries).map((employee, index) => (
-              <tr key={index} id={`employee-${index}`}>
-                <td>{employee.input.firstName}</td>
-                <td>{employee.input.lastName}</td>
-                <td>{employee.input.startDate}</td>
-                <td>{employee.input.department}</td>
-                <td>{employee.input.birthDay}</td>
-                <td>{employee.input.street}</td>
-                <td>{employee.input.city}</td>
-                <td>{employee.input.state}</td>
-                <td>{employee.input.zipCode}</td>
-              </tr>
-            ))}
+          ? filteredData
+              .slice(
+                parseInt(pageNumber) === 1
+                  ? 0
+                  : (parseInt(pageNumber) - 1) * entries,
+                parseInt(pageNumber) * entries
+              )
+              .map((employee, index) => (
+                <tr key={index} id={`employee-${index}`}>
+                  <td>{employee.input.firstName}</td>
+                  <td>{employee.input.lastName}</td>
+                  <td>{employee.input.startDate}</td>
+                  <td>{employee.input.department}</td>
+                  <td>{employee.input.birthDay}</td>
+                  <td>{employee.input.street}</td>
+                  <td>{employee.input.city}</td>
+                  <td>{employee.input.state}</td>
+                  <td>{employee.input.zipCode}</td>
+                </tr>
+              ))
+          : data
+              .slice(
+                parseInt(pageNumber) === 1
+                  ? 0
+                  : (parseInt(pageNumber) - 1) * entries,
+                parseInt(pageNumber) * entries
+              )
+              .map((employee, index) => (
+                <tr key={index} id={`employee-${index}`}>
+                  <td>{employee.input.firstName}</td>
+                  <td>{employee.input.lastName}</td>
+                  <td>{employee.input.startDate}</td>
+                  <td>{employee.input.department}</td>
+                  <td>{employee.input.birthDay}</td>
+                  <td>{employee.input.street}</td>
+                  <td>{employee.input.city}</td>
+                  <td>{employee.input.state}</td>
+                  <td>{employee.input.zipCode}</td>
+                </tr>
+              ))}
       </tbody>
     </table>
   );

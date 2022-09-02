@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../components/Table";
 import { addEmployee } from "../features/employeeSlice";
@@ -11,11 +11,14 @@ function EmployeeList() {
   const filteredData = useSelector((state) => state.search.results);
   const [entries, setEntries] = useState([10, 25, 50, 100]);
   const [entriesNumber, setEntriesNumber] = useState({ currentEntries: 10 });
+  const { pageNumber } = useParams();
+  const navigate = useNavigate();
 
   const handleEntriesNumber = (e) => {
     const value = parseInt(e.target.value);
     const { name } = e.target;
     setEntriesNumber({ [name]: value });
+    navigate("/employee-list/1");
   };
 
   const dispatch = useDispatch();
@@ -72,7 +75,24 @@ function EmployeeList() {
             entries
           </p>
           <p>
-            Previous <button className="page-btn">1</button> Next
+            <Link
+              to={`/employee-list/${
+                pageNumber > 1 ? parseInt(pageNumber) - 1 : 1
+              }`}
+            >
+              Previous
+            </Link>
+            <button className="page-btn disabled">{pageNumber}</button>{" "}
+            <Link
+              to={`/employee-list/${
+                parseInt(pageNumber) * entriesNumber.currentEntries >
+                employees.length
+                  ? parseInt(pageNumber)
+                  : parseInt(pageNumber) + 1
+              }`}
+            >
+              Next
+            </Link>
           </p>
         </div>
       </div>
