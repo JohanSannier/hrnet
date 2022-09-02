@@ -16,12 +16,6 @@ function EmployeeList() {
     const value = parseInt(e.target.value);
     const { name } = e.target;
     setEntriesNumber({ [name]: value });
-    console.log(name);
-    console.log(value);
-    console.log(entriesNumber);
-    setTimeout(() => {
-      console.log(entriesNumber);
-    }, 1000);
   };
 
   const dispatch = useDispatch();
@@ -74,16 +68,17 @@ function EmployeeList() {
         />
         <div className="lower-content flex">
           <p className="lower-content-paragragh">
-            Showing 1 to {employees.length} of {employees.length} entries
+            Showing 1 to {entriesNumber.currentEntries} of {employees.length}{" "}
+            entries
           </p>
           <p>
             Previous <button className="page-btn">1</button> Next
           </p>
         </div>
       </div>
-      <Link to="/" className="link">
-        Home
-      </Link>
+      <div className="flex link">
+        <Link to="/">Home</Link>
+      </div>
     </main>
   );
 }

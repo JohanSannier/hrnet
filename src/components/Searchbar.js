@@ -10,14 +10,12 @@ function Searchbar() {
     const { name } = e.target;
     const searchWord = e.target.value.toLowerCase();
     setSearchedInputs({ [name]: searchWord });
-    const singleWord = searchWord.trim().split(/\s+/);
-    console.log(singleWord);
-    // singleWord.forEach((word) => {
+    const inputWords = searchWord.trim().split(/\s+/);
+    console.log(inputWords);
 
     const newFilter = employees.filter((employee) => {
-      let unMatched = singleWord.length;
-      for (const word of singleWord) {
-        // console.log(word);
+      let unMatched = inputWords.length;
+      for (const word of inputWords) {
         if (
           employee.input.firstName.toLowerCase().includes(word) ||
           employee.input.lastName.toLowerCase().includes(word) ||
@@ -30,25 +28,11 @@ function Searchbar() {
           employee.input.zipCode.toLowerCase().includes(word)
         )
           unMatched--;
-        // console.log(unMatched);
       }
-      // console.log(!unMatched);
       return !unMatched;
-      // return (
-      //   employee.input.firstName.toLowerCase().includes(searchWord) ||
-      //   employee.input.lastName.toLowerCase().includes(searchWord) ||
-      //   employee.input.startDate.toLowerCase().includes(searchWord) ||
-      //   employee.input.department.toLowerCase().includes(searchWord) ||
-      //   employee.input.birthDay.toLowerCase().includes(searchWord) ||
-      //   employee.input.street.toLowerCase().includes(searchWord) ||
-      //   employee.input.city.toLowerCase().includes(searchWord) ||
-      //   employee.input.state.toLowerCase().includes(searchWord) ||
-      //   employee.input.zipCode.toLowerCase().includes(searchWord)
-      // );
     });
     dispatch(filterData(newFilter));
     dispatch(activeSearch(searchWord));
-    // });
   };
 
   return (

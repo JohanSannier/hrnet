@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaSort } from "react-icons/fa";
 import { FaSortUp } from "react-icons/fa";
 import { FaSortDown } from "react-icons/fa";
@@ -8,60 +8,36 @@ function Table({ data, filteredData, entries }) {
   const isActive = useSelector((state) => state.search.isActive);
   // console.log(entries);
   const [icons, seticons] = useState("default");
+  const [filteredColumn, setFilteredColumn] = useState(0);
   // deux state - un pour n0 colonne filtrees et un deuxieme state pour indiquer le sens du filtre
-  // console.log(entries);
-  useEffect(() => {
-    const searchbar = document.getElementById("search-input");
-    // console.log(searchbar.value.length);
-  }, []);
 
-  const handleClickIcon = () => {
-    // setIcons((prevValue) => {
-    //   switch (prevValue) {
-    //     case "default":
-    //       prevValue = true;
-    //       break;
-    //     case true:
-    //       prevValue = false;
-    //       break;
-    //     case false:
-    //       prevValue = true;
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // });
-    // setIcons((prevValue) => {
-    //   if (prevValue === "default") {
-    //     prevValue = true;
-    //   } else {
-    //     prevValue = !prevValue;
-    //   }
-    // });
-    // setIcons((prevValue) => {
-    //   prevValue === null
-    //     ? (prevValue = true)
-    //     : prevValue === true
-    //     ? (prevValue = false)
-    //     : (prevValue = true);
-    // });
+  const handleClickIcon = (e) => {
+    const dataTitle = parseInt(
+      e.target.parentNode.parentNode.getAttribute("data-title")
+    );
+    console.log(e.target);
+    setFilteredColumn((prevValue) => {
+      prevValue === dataTitle
+        ? seticons((prevIcon) => !prevIcon)
+        : (prevValue = dataTitle);
+    });
   };
   return (
     <table className="table">
       <thead>
-        <tr className="table-title">
-          <th onClick={handleClickIcon}>
+        <tr id="table-title">
+          <th onClick={handleClickIcon} data-title={1}>
             First Name{" "}
             {/* si colonne = 0 donc celle ci est filtree, si pas filtree double fleche si ca lest une des autres icones - si descendant ... si montant .... */}
-            {icons === "true" ? (
+            {icons === true ? (
               <FaSortUp />
-            ) : icons === "false" ? (
+            ) : icons === false ? (
               <FaSortDown />
             ) : (
               <FaSort />
             )}
           </th>
-          <th>
+          <th data-title={2} onClick={handleClickIcon}>
             Last Name <FaSort />
           </th>
           <th>

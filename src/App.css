@@ -85,7 +85,6 @@ main h1 {
 }
 
 .link {
-  display: flex;
   justify-content: center;
 }
 
@@ -154,12 +153,9 @@ th {
   border-bottom: 1px solid black;
 }
 
-th {
-  cursor: pointer;
-}
-
-svg {
+svg path {
   color: rgb(170, 170, 170);
+  cursor: pointer;
 }
 
 .lower-content-paragragh {
@@ -177,4 +173,8 @@ svg {
 
 .hide {
   display: none;
+}
+
+#current-entries {
+  margin: 0 0.3rem;
 }
