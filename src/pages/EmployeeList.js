@@ -9,6 +9,7 @@ import Searchbar from "../components/Searchbar";
 function EmployeeList() {
   const employees = useSelector((state) => state.list.employees);
   const filteredData = useSelector((state) => state.search.results);
+  // eslint-disable-next-line no-unused-vars
   const [entries, setEntries] = useState([10, 25, 50, 100]);
   const [entriesNumber, setEntriesNumber] = useState({ currentEntries: 10 });
   const { pageNumber } = useParams();
@@ -39,7 +40,7 @@ function EmployeeList() {
       };
       populateEmployeeState().catch(console.error);
     }
-  }, []);
+  });
 
   return (
     <main>

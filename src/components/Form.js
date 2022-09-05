@@ -3,7 +3,7 @@ import { states } from "../data/States";
 import { departments } from "../data/Departments";
 import { useDispatch, useSelector } from "react-redux";
 import { addEmployee } from "../features/employeeSlice";
-import { getStorageCount, increment, reset } from "../features/countSlice";
+import { increment, reset } from "../features/countSlice";
 import ModalDialog from "../components/ModalDialog";
 
 function Form() {
@@ -25,7 +25,7 @@ function Form() {
       };
       populateEmployeeState().catch(console.error);
     }
-  }, []);
+  });
 
   const [input, setInputs] = useState({
     firstName: "",
@@ -84,6 +84,9 @@ function Form() {
             name="firstName"
             value={input.firstName}
             onChange={handleChange}
+            required
+            pattern="([A-Za-za])\w+"
+            title="Please input your correct first name."
           />
         </label>
         <label className="label">
@@ -93,6 +96,9 @@ function Form() {
             name="lastName"
             value={input.lastName}
             onChange={handleChange}
+            required
+            pattern="([A-Za-za])\w+"
+            title="Please input your correct last name."
           />
         </label>
         <label className="label">
@@ -102,6 +108,7 @@ function Form() {
             name="birthDay"
             value={input.birthDay}
             onChange={handleChange}
+            required
           />
         </label>
         <label className="label">
@@ -163,6 +170,7 @@ function Form() {
             value={input.department}
             name="department"
             onChange={handleChange}
+            required
           >
             <option value="" key="select-department">
               --Select a department--
