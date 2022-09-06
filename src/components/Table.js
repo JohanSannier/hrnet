@@ -7,19 +7,18 @@ import { useParams } from "react-router-dom";
 
 function Table({ data, filteredData, entries }) {
   const isActive = useSelector((state) => state.search.isActive);
-  const [icons, seticons] = useState("default");
-  const [filteredColumn, setFilteredColumn] = useState(0);
+  const [icons, seticons] = useState(0);
+  const [filteredColumn, setFilteredColumn] = useState(-1);
   // deux state - un pour n0 colonne filtrees et un deuxieme state pour indiquer le sens du filtre
 
   const handleClickIcon = (e) => {
-    const dataTitle = parseInt(
-      e.target.parentNode.parentNode.getAttribute("data-title")
-    );
-    setFilteredColumn((prevValue) => {
-      prevValue === dataTitle
-        ? seticons((prevIcon) => !prevIcon)
-        : (prevValue = dataTitle);
-    });
+    const dataTitle = parseInt(e.currentTarget.getAttribute("data-title"));
+    console.log("filteredcolumn:", filteredColumn);
+    console.log("datatitle:", dataTitle);
+    seticons(filteredColumn === dataTitle ? -icons : -1);
+    setFilteredColumn(dataTitle);
+    console.log(icons);
+    // faire la focntion fitre directement ici
   };
 
   const { pageNumber } = useParams();
@@ -29,38 +28,113 @@ function Table({ data, filteredData, entries }) {
         <tr id="table-title">
           <th onClick={handleClickIcon} data-title={1}>
             First Name{" "}
-            {/* si colonne = 0 donc celle ci est filtree, si pas filtree double fleche si ca lest une des autres icones - si descendant ... si montant .... */}
-            {icons === true ? (
+            {/* si colonne = 0 donc celle ci est filtree, si pas filtree double fleche si ca lest une des autres icones - si descendant ... si montant .... 
+            si fileteed data pas egal a 1 alors fasort dans le cas contraire cas 1 -1*/}
+            {filteredColumn !== 1 ? (
+              <FaSort />
+            ) : icons === 1 ? (
               <FaSortUp />
-            ) : icons === false ? (
+            ) : icons === -1 ? (
               <FaSortDown />
             ) : (
               <FaSort />
             )}
           </th>
           <th data-title={2} onClick={handleClickIcon}>
-            Last Name <FaSort />
+            Last Name{" "}
+            {filteredColumn !== 2 ? (
+              <FaSort />
+            ) : icons === 1 ? (
+              <FaSortUp />
+            ) : icons === -1 ? (
+              <FaSortDown />
+            ) : (
+              <FaSort />
+            )}
           </th>
-          <th>
-            Start Date <FaSort />
+          <th data-title={3} onClick={handleClickIcon}>
+            Start Date{" "}
+            {filteredColumn !== 3 ? (
+              <FaSort />
+            ) : icons === 1 ? (
+              <FaSortUp />
+            ) : icons === -1 ? (
+              <FaSortDown />
+            ) : (
+              <FaSort />
+            )}
           </th>
-          <th>
-            Department <FaSort />
+          <th data-title={4} onClick={handleClickIcon}>
+            Department{" "}
+            {filteredColumn !== 4 ? (
+              <FaSort />
+            ) : icons === 1 ? (
+              <FaSortUp />
+            ) : icons === -1 ? (
+              <FaSortDown />
+            ) : (
+              <FaSort />
+            )}
           </th>
-          <th>
-            Date of Birth <FaSort />
+          <th data-title={5} onClick={handleClickIcon}>
+            Date of Birth{" "}
+            {filteredColumn !== 5 ? (
+              <FaSort />
+            ) : icons === 1 ? (
+              <FaSortUp />
+            ) : icons === -1 ? (
+              <FaSortDown />
+            ) : (
+              <FaSort />
+            )}
           </th>
-          <th>
-            Street <FaSort />
+          <th data-title={6} onClick={handleClickIcon}>
+            Street{" "}
+            {filteredColumn !== 6 ? (
+              <FaSort />
+            ) : icons === 1 ? (
+              <FaSortUp />
+            ) : icons === -1 ? (
+              <FaSortDown />
+            ) : (
+              <FaSort />
+            )}
           </th>
-          <th>
-            City <FaSort />
+          <th data-title={7} onClick={handleClickIcon}>
+            City{" "}
+            {filteredColumn !== 7 ? (
+              <FaSort />
+            ) : icons === 1 ? (
+              <FaSortUp />
+            ) : icons === -1 ? (
+              <FaSortDown />
+            ) : (
+              <FaSort />
+            )}
           </th>
-          <th>
-            State <FaSort />
+          <th data-title={8} onClick={handleClickIcon}>
+            State{" "}
+            {filteredColumn !== 8 ? (
+              <FaSort />
+            ) : icons === 1 ? (
+              <FaSortUp />
+            ) : icons === -1 ? (
+              <FaSortDown />
+            ) : (
+              <FaSort />
+            )}
           </th>
-          <th>
-            Zip Code <FaSort />
+          <th data-title={9} onClick={handleClickIcon}>
+            Zip Code{" "}
+            {filteredColumn !== 9 ? (
+              <FaSort />
+            ) : icons === 1 ? (
+              <FaSortUp />
+            ) : icons === -1 ? (
+              <FaSortDown />
+            ) : (
+              <FaSort />
+            )}
           </th>
         </tr>
       </thead>
