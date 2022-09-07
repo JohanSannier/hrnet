@@ -9,15 +9,13 @@ function Table({ data, filteredData, entries }) {
   const isActive = useSelector((state) => state.search.isActive);
   const [icons, seticons] = useState(0);
   const [filteredColumn, setFilteredColumn] = useState(-1);
-  // deux state - un pour n0 colonne filtrees et un deuxieme state pour indiquer le sens du filtre
 
   const handleClickIcon = (e) => {
     const dataTitle = parseInt(e.currentTarget.getAttribute("data-title"));
-    console.log("filteredcolumn:", filteredColumn);
-    console.log("datatitle:", dataTitle);
     seticons(filteredColumn === dataTitle ? -icons : -1);
     setFilteredColumn(dataTitle);
-    console.log(icons);
+    console.log(data);
+
     // faire la focntion fitre directement ici
   };
 
@@ -28,8 +26,6 @@ function Table({ data, filteredData, entries }) {
         <tr id="table-title">
           <th onClick={handleClickIcon} data-title={1}>
             First Name{" "}
-            {/* si colonne = 0 donc celle ci est filtree, si pas filtree double fleche si ca lest une des autres icones - si descendant ... si montant .... 
-            si fileteed data pas egal a 1 alors fasort dans le cas contraire cas 1 -1*/}
             {filteredColumn !== 1 ? (
               <FaSort />
             ) : icons === 1 ? (
@@ -139,7 +135,6 @@ function Table({ data, filteredData, entries }) {
         </tr>
       </thead>
       <tbody>
-        {/* (n0 de la page -1 ) multiple par nb entries souhaitees */}
         {filteredData.length > 0 || isActive
           ? filteredData
               .slice(
