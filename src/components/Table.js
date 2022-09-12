@@ -2,21 +2,49 @@ import React, { useState } from "react";
 import { FaSort } from "react-icons/fa";
 import { FaSortUp } from "react-icons/fa";
 import { FaSortDown } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { sortEmployees } from "../features/employeeSlice";
+import { sortSearchedEmployees } from "../features//searchSlice";
 
 function Table({ data, filteredData, entries }) {
   const isActive = useSelector((state) => state.search.isActive);
   const [icons, seticons] = useState(0);
   const [filteredColumn, setFilteredColumn] = useState(-1);
+  const dispatch = useDispatch();
 
   const handleClickIcon = (e) => {
     const dataTitle = parseInt(e.currentTarget.getAttribute("data-title"));
+    const dataProperty = e.currentTarget.getAttribute("data-property");
+    console.log(dataProperty);
     seticons(filteredColumn === dataTitle ? -icons : -1);
     setFilteredColumn(dataTitle);
-    console.log(data);
+    // FONCTION FILTRE
+    // dispatch(sortEmployees(icons));
+    // dispatch(sortSearchedEmployees(icons));
+    // const sortedFunction = (a, b) => a - b;
+    // data.sort(sortedFunction(icons, 0));
+    const strAscending = [...data].sort((a, b) =>
+      a.input.firstName > b.input.firstName ? 1 : -1
+    );
+    const strDescending = [...data].sort((a, b) =>
+      a.input.firstName < b.input.firstName ? 1 : -1
+    );
 
-    // faire la focntion fitre directement ici
+    // function test(col) {
+    //   console.log(col);
+
+    //   [...data].sort((a, b) =>
+    //     a.input.dataProperty > b.input.dataProperty ? 1 : -1
+    //   );
+    // }
+    // test(dataTitle);
+    dispatch(
+      icons === -1
+        ? sortEmployees(strDescending)
+        : icons === 1 && sortEmployees(strAscending)
+    );
+    // console.log(strAscending);
   };
 
   const { pageNumber } = useParams();
@@ -24,7 +52,11 @@ function Table({ data, filteredData, entries }) {
     <table className="table">
       <thead>
         <tr id="table-title">
-          <th onClick={handleClickIcon} data-title={1}>
+          <th
+            onClick={handleClickIcon}
+            data-title={1}
+            data-property="firstName"
+          >
             First Name{" "}
             {filteredColumn !== 1 ? (
               <FaSort />
@@ -36,7 +68,7 @@ function Table({ data, filteredData, entries }) {
               <FaSort />
             )}
           </th>
-          <th data-title={2} onClick={handleClickIcon}>
+          <th data-title={2} onClick={handleClickIcon} data-property="lastName">
             Last Name{" "}
             {filteredColumn !== 2 ? (
               <FaSort />
@@ -48,7 +80,11 @@ function Table({ data, filteredData, entries }) {
               <FaSort />
             )}
           </th>
-          <th data-title={3} onClick={handleClickIcon}>
+          <th
+            data-title={3}
+            onClick={handleClickIcon}
+            data-property="startDate"
+          >
             Start Date{" "}
             {filteredColumn !== 3 ? (
               <FaSort />
