@@ -16,15 +16,9 @@ export const searchlice = createSlice({
         state.isActive = false;
       }
     },
-    sortSearchedEmployees: (state, { payload }) => {
-      state.sort((a, b) => {
-        return a - b;
-      });
-    },
   },
 });
 
-export const { filterData, activeSearch, sortSearchedEmployees } =
-  searchlice.actions;
+export const { filterData, activeSearch } = searchlice.actions;
 
 export default searchlice.reducer;

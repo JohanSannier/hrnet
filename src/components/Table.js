@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaSort } from "react-icons/fa";
 import { FaSortUp } from "react-icons/fa";
 import { FaSortDown } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { sortEmployees } from "../features/employeeSlice";
-import { sortSearchedEmployees } from "../features//searchSlice";
 
 function Table({ data, filteredData, entries }) {
   const dispatch = useDispatch();
