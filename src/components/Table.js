@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSort } from "react-icons/fa";
 import { FaSortUp } from "react-icons/fa";
 import { FaSortDown } from "react-icons/fa";
@@ -8,44 +8,60 @@ import { sortEmployees } from "../features/employeeSlice";
 import { sortSearchedEmployees } from "../features//searchSlice";
 
 function Table({ data, filteredData, entries }) {
+  const dispatch = useDispatch();
   const isActive = useSelector((state) => state.search.isActive);
   const [icons, seticons] = useState(0);
   const [filteredColumn, setFilteredColumn] = useState(-1);
-  const dispatch = useDispatch();
 
   const handleClickIcon = (e) => {
+    console.log(sortEmployees([]));
+    console.log(data);
     const dataTitle = parseInt(e.currentTarget.getAttribute("data-title"));
     const dataProperty = e.currentTarget.getAttribute("data-property");
     console.log(dataProperty);
-    seticons(filteredColumn === dataTitle ? -icons : -1);
+    const newIcon = filteredColumn === dataTitle ? -icons : -1;
+    console.log(icons);
+    console.log("attendu:", newIcon);
+    seticons(newIcon);
+
     setFilteredColumn(dataTitle);
     // FONCTION FILTRE
-    // dispatch(sortEmployees(icons));
-    // dispatch(sortSearchedEmployees(icons));
-    // const sortedFunction = (a, b) => a - b;
-    // data.sort(sortedFunction(icons, 0));
     const strAscending = [...data].sort((a, b) =>
-      a.input.firstName > b.input.firstName ? 1 : -1
+      a.input.dataProperty > b.input.dataProperty ? 1 : -1
     );
     const strDescending = [...data].sort((a, b) =>
-      a.input.firstName < b.input.firstName ? 1 : -1
+      a.input.dataProperty < b.input.dataProperty ? 1 : -1
     );
+    console.log("useeffect", icons);
 
-    // function test(col) {
-    //   console.log(col);
-
-    //   [...data].sort((a, b) =>
-    //     a.input.dataProperty > b.input.dataProperty ? 1 : -1
-    //   );
-    // }
-    // test(dataTitle);
     dispatch(
       icons === -1
         ? sortEmployees(strDescending)
         : icons === 1 && sortEmployees(strAscending)
     );
-    // console.log(strAscending);
+
+    // dispatch(
+    //   icons === -1
+    //     ? sortEmployees(strDescending)
+    //     : icons === 1 && sortEmployees(strAscending)
+    // );
   };
+
+  // useEffect(() => {
+  //   const strAscending = [...data].sort((a, b) =>
+  //     a.input.firstName > b.input.firstName ? 1 : -1
+  //   );
+  //   const strDescending = [...data].sort((a, b) =>
+  //     a.input.firstName < b.input.firstName ? 1 : -1
+  //   );
+  //   console.log("useeffect", icons);
+  //   console.log(sortEmployees(strAscending));
+  //   dispatch(
+  //     icons === -1
+  //       ? sortEmployees(strDescending)
+  //       : icons === 1 && sortEmployees(strAscending)
+  //   );
+  // }, [icons]);
 
   const { pageNumber } = useParams();
   return (
@@ -96,7 +112,11 @@ function Table({ data, filteredData, entries }) {
               <FaSort />
             )}
           </th>
-          <th data-title={4} onClick={handleClickIcon}>
+          <th
+            data-title={4}
+            onClick={handleClickIcon}
+            data-property="department"
+          >
             Department{" "}
             {filteredColumn !== 4 ? (
               <FaSort />
@@ -108,7 +128,7 @@ function Table({ data, filteredData, entries }) {
               <FaSort />
             )}
           </th>
-          <th data-title={5} onClick={handleClickIcon}>
+          <th data-title={5} onClick={handleClickIcon} data-property="birthDay">
             Date of Birth{" "}
             {filteredColumn !== 5 ? (
               <FaSort />
@@ -120,7 +140,7 @@ function Table({ data, filteredData, entries }) {
               <FaSort />
             )}
           </th>
-          <th data-title={6} onClick={handleClickIcon}>
+          <th data-title={6} onClick={handleClickIcon} data-property="street">
             Street{" "}
             {filteredColumn !== 6 ? (
               <FaSort />
@@ -132,7 +152,7 @@ function Table({ data, filteredData, entries }) {
               <FaSort />
             )}
           </th>
-          <th data-title={7} onClick={handleClickIcon}>
+          <th data-title={7} onClick={handleClickIcon} data-property="city">
             City{" "}
             {filteredColumn !== 7 ? (
               <FaSort />
@@ -144,7 +164,7 @@ function Table({ data, filteredData, entries }) {
               <FaSort />
             )}
           </th>
-          <th data-title={8} onClick={handleClickIcon}>
+          <th data-title={8} onClick={handleClickIcon} data-property="state">
             State{" "}
             {filteredColumn !== 8 ? (
               <FaSort />
@@ -156,7 +176,7 @@ function Table({ data, filteredData, entries }) {
               <FaSort />
             )}
           </th>
-          <th data-title={9} onClick={handleClickIcon}>
+          <th data-title={9} onClick={handleClickIcon} data-property="zipCode">
             Zip Code{" "}
             {filteredColumn !== 9 ? (
               <FaSort />
