@@ -13,54 +13,23 @@ function Table({ data, filteredData, entries }) {
   const [filteredColumn, setFilteredColumn] = useState(-1);
 
   const handleClickIcon = (e) => {
-    console.log(sortEmployees([]));
-    console.log(data);
     const dataTitle = parseInt(e.currentTarget.getAttribute("data-title"));
     const dataProperty = e.currentTarget.getAttribute("data-property");
-    console.log(dataProperty);
     const newIcon = filteredColumn === dataTitle ? -icons : -1;
-    console.log(icons);
-    console.log("attendu:", newIcon);
+    const sorts = [];
+    sorts[-1] = [...data].sort((a, b) =>
+      a.input[dataProperty] > b.input[dataProperty] ? 1 : -1
+    );
+    sorts[0] = () => {
+      return [...data];
+    };
+    sorts[1] = [...data].sort((a, b) =>
+      a.input[dataProperty] < b.input[dataProperty] ? 1 : -1
+    );
     seticons(newIcon);
-
     setFilteredColumn(dataTitle);
-    // FONCTION FILTRE
-    const strAscending = [...data].sort((a, b) =>
-      a.input.dataProperty > b.input.dataProperty ? 1 : -1
-    );
-    const strDescending = [...data].sort((a, b) =>
-      a.input.dataProperty < b.input.dataProperty ? 1 : -1
-    );
-    console.log("useeffect", icons);
-
-    dispatch(
-      icons === -1
-        ? sortEmployees(strDescending)
-        : icons === 1 && sortEmployees(strAscending)
-    );
-
-    // dispatch(
-    //   icons === -1
-    //     ? sortEmployees(strDescending)
-    //     : icons === 1 && sortEmployees(strAscending)
-    // );
+    dispatch(sortEmployees(sorts[newIcon]));
   };
-
-  // useEffect(() => {
-  //   const strAscending = [...data].sort((a, b) =>
-  //     a.input.firstName > b.input.firstName ? 1 : -1
-  //   );
-  //   const strDescending = [...data].sort((a, b) =>
-  //     a.input.firstName < b.input.firstName ? 1 : -1
-  //   );
-  //   console.log("useeffect", icons);
-  //   console.log(sortEmployees(strAscending));
-  //   dispatch(
-  //     icons === -1
-  //       ? sortEmployees(strDescending)
-  //       : icons === 1 && sortEmployees(strAscending)
-  //   );
-  // }, [icons]);
 
   const { pageNumber } = useParams();
   return (
