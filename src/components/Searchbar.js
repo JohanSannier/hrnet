@@ -16,15 +16,15 @@ function Searchbar() {
       let unMatched = inputWords.length;
       for (const word of inputWords) {
         if (
-          employee.input.firstName.toLowerCase().includes(word) ||
-          employee.input.lastName.toLowerCase().includes(word) ||
-          employee.input.startDate.toLowerCase().includes(word) ||
-          employee.input.department.toLowerCase().includes(word) ||
-          employee.input.birthDay.toLowerCase().includes(word) ||
-          employee.input.street.toLowerCase().includes(word) ||
-          employee.input.city.toLowerCase().includes(word) ||
-          employee.input.state.toLowerCase().includes(word) ||
-          employee.input.zipCode.toLowerCase().includes(word)
+          employee.firstName.toLowerCase().includes(word) ||
+          employee.lastName.toLowerCase().includes(word) ||
+          employee.startDate.toLowerCase().includes(word) ||
+          employee.department.toLowerCase().includes(word) ||
+          employee.birthDay.toLowerCase().includes(word) ||
+          employee.street.toLowerCase().includes(word) ||
+          employee.city.toLowerCase().includes(word) ||
+          employee.state.toLowerCase().includes(word) ||
+          employee.zipCode.toLowerCase().includes(word)
         )
           unMatched--;
       }

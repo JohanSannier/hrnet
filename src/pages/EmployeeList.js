@@ -3,7 +3,6 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../components/Table";
 import { addEmployee } from "../features/employeeSlice";
-import { increment, reset } from "../features/countSlice";
 import Searchbar from "../components/Searchbar";
 
 function EmployeeList() {
@@ -25,22 +24,17 @@ function EmployeeList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (localStorage.length === 0) {
-      return;
-    } else if (employees.length > 0) {
+    if (employees.length > 0) {
       return;
     } else {
-      const populateEmployeeState = async () => {
-        dispatch(reset());
-        for (let index = 0; index < localStorage.length; index++) {
-          const input = await JSON.parse(localStorage.getItem(index));
-          dispatch(addEmployee({ input }));
-          dispatch(increment());
+      const getEmployeesFromLoc = JSON.parse(localStorage.getItem("employees"));
+      if (getEmployeesFromLoc != null) {
+        for (const employee of getEmployeesFromLoc) {
+          dispatch(addEmployee(employee));
         }
-      };
-      populateEmployeeState().catch(console.error);
+      }
     }
-  });
+  }, []);
 
   return (
     <main>

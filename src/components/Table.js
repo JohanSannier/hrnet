@@ -18,13 +18,13 @@ function Table({ data, filteredData, entries }) {
     const newIcon = filteredColumn === dataTitle ? -icons : -1;
     const sorts = [];
     sorts[-1] = [...data].sort((a, b) =>
-      a.input[dataProperty] > b.input[dataProperty] ? 1 : -1
+      a[dataProperty] > b[dataProperty] ? 1 : -1
     );
     sorts[0] = () => {
       return [...data];
     };
     sorts[1] = [...data].sort((a, b) =>
-      a.input[dataProperty] < b.input[dataProperty] ? 1 : -1
+      a[dataProperty] < b[dataProperty] ? 1 : -1
     );
     seticons(newIcon);
     setFilteredColumn(dataTitle);
@@ -169,15 +169,15 @@ function Table({ data, filteredData, entries }) {
               )
               .map((employee, index) => (
                 <tr key={index} id={`employee-${index}`}>
-                  <td>{employee.input.firstName}</td>
-                  <td>{employee.input.lastName}</td>
-                  <td>{employee.input.startDate}</td>
-                  <td>{employee.input.department}</td>
-                  <td>{employee.input.birthDay}</td>
-                  <td>{employee.input.street}</td>
-                  <td>{employee.input.city}</td>
-                  <td>{employee.input.state}</td>
-                  <td>{employee.input.zipCode}</td>
+                  <td>{employee.firstName}</td>
+                  <td>{employee.lastName}</td>
+                  <td>{employee.startDate}</td>
+                  <td>{employee.department}</td>
+                  <td>{employee.birthDay}</td>
+                  <td>{employee.street}</td>
+                  <td>{employee.city}</td>
+                  <td>{employee.state}</td>
+                  <td>{employee.zipCode}</td>
                 </tr>
               ))
           : data
@@ -189,15 +189,15 @@ function Table({ data, filteredData, entries }) {
               )
               .map((employee, index) => (
                 <tr key={index} id={`employee-${index}`}>
-                  <td>{employee.input.firstName}</td>
-                  <td>{employee.input.lastName}</td>
-                  <td>{employee.input.startDate}</td>
-                  <td>{employee.input.department}</td>
-                  <td>{employee.input.birthDay}</td>
-                  <td>{employee.input.street}</td>
-                  <td>{employee.input.city}</td>
-                  <td>{employee.input.state}</td>
-                  <td>{employee.input.zipCode}</td>
+                  <td>{employee.firstName}</td>
+                  <td>{employee.lastName}</td>
+                  <td>{employee.startDate}</td>
+                  <td>{employee.department}</td>
+                  <td>{employee.birthDay}</td>
+                  <td>{employee.street}</td>
+                  <td>{employee.city}</td>
+                  <td>{employee.state}</td>
+                  <td>{employee.zipCode}</td>
                 </tr>
               ))}
       </tbody>

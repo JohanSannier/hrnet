@@ -3,29 +3,24 @@ import { states } from "../data/States";
 import { departments } from "../data/Departments";
 import { useDispatch, useSelector } from "react-redux";
 import { addEmployee } from "../features/employeeSlice";
-import { increment, reset } from "../features/countSlice";
 import ModalDialog from "../components/ModalDialog";
 
 function Form() {
   const employees = useSelector((state) => state.list.employees);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (localStorage.length === 0) {
-      return;
-    } else if (employees.length > 0) {
+    if (employees.length > 0) {
       return;
     } else {
-      const populateEmployeeState = async () => {
-        dispatch(reset());
-        for (let index = 0; index < localStorage.length; index++) {
-          const input = await JSON.parse(localStorage.getItem(index));
-          dispatch(addEmployee({ input }));
-          dispatch(increment());
+      const getEmployeesFromLoc = JSON.parse(localStorage.getItem("employees"));
+      if (getEmployeesFromLoc != null) {
+        for (const employee of getEmployeesFromLoc) {
+          dispatch(addEmployee(employee));
         }
-      };
-      populateEmployeeState().catch(console.error);
+      }
     }
-  });
+  }, []);
 
   const [input, setInputs] = useState({
     firstName: "",
@@ -38,8 +33,6 @@ function Form() {
     zipCode: "",
     department: "",
   });
-  const count = useSelector((state) => state.storage.count);
-  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -57,9 +50,9 @@ function Form() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    dispatch(addEmployee({ input }));
-    localStorage.setItem(count, JSON.stringify(input));
-    dispatch(increment());
+    dispatch(addEmployee(input));
+    const newEmployees = [...employees, input];
+    localStorage.setItem("employees", JSON.stringify(newEmployees));
     setInputs({
       firstName: "",
       lastName: "",
